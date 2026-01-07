@@ -1,0 +1,527 @@
+<!doctype html>
+
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Innova — Dashboard Premium</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+  /* ==========================================================
+     INNOVA — DASHBOARD PREMIUM (SINGLE FILE)
+     VisionOS / Glass / Senior Level
+     ========================================================== */
+
+  :root {
+    --bg: radial-gradient(circle at 20% 20%, #0a0f25, #050814 70%);
+    --glass: rgba(255,255,255,0.08);
+    --glass-strong: rgba(255,255,255,0.12);
+    --border: rgba(255,255,255,0.14);
+    --accent: #4cc9f0;
+    --accent-soft: rgba(76,201,240,0.25);
+    --text: #e9f0ff;
+    --muted: rgba(255,255,255,0.65);
+    --radius: 20px;
+    --blur: 22px;
+    --shadow: 0 18px 50px rgba(0,0,0,0.55);
+    --trans: all .25s ease;
+    font-family: -apple-system, "SF Pro Display", Inter, system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* ================= SIDEBAR ================= */
+  .sidebar {
+    width: 270px;
+    background: var(--glass);
+    backdrop-filter: blur(var(--blur));
+    border-right: 1px solid var(--border);
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand img {
+    height: 42px;
+    filter: drop-shadow(0 0 16px rgba(76,201,240,.45));
+  }
+
+  .brand span {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .3px;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .menu a {
+    padding: 14px 16px;
+    border-radius: 16px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    transition: var(--trans);
+    background: transparent;
+  }
+
+  .menu a.active,
+  .menu a:hover {
+    background: var(--accent-soft);
+    box-shadow: 0 0 22px rgba(76,201,240,.35);
+  }
+
+  /* ================= MAIN ================= */
+  .main {
+    flex: 1;
+    padding: 28px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* ================= HEADER ================= */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .topbar h1 {
+    font-size: 28px;
+    background: linear-gradient(90deg,#fff,#c7f6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ================= KPIs ================= */
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px,1fr));
+    gap: 18px;
+  }
+
+  .kpi {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: var(--trans);
+  }
+
+  .kpi:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(76,201,240,.35);
+  }
+
+  .kpi span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .kpi h2 {
+    font-size: 30px;
+    margin-top: 6px;
+  }
+
+  /* ================= FILTERS ================= */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+
+  .filters input,
+  .filters select {
+    flex: 1;
+    min-width: 180px;
+    padding: 13px 15px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: rgba(0,0,0,.45);
+    color: var(--text);
+    outline: none;
+    transition: var(--trans);
+  }
+
+  .filters input:focus,
+  .filters select:focus {
+    box-shadow: 0 0 0 2px var(--accent-soft);
+  }
+
+  /* ================= TABLE ================= */
+  .table-wrap {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: auto;
+    box-shadow: var(--shadow);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+  }
+
+  th, td {
+    padding: 16px 18px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  th {
+    font-size: 13px;
+    color: var(--muted);
+    background: rgba(0,0,0,.3);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  tr:hover td {
+    background: rgba(76,201,240,.06);
+  }
+
+  /* ================= MOBILE ================= */
+  @media(max-width: 900px) {
+    .sidebar { display: none; }
+    .topbar h1 { font-size: 24px; }
+  }
+
+  /* ===============================
+   LOADER OVERLAY — PREMIUM
+================================ */
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 20, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.loader-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  color: #4cc9f0;
+  font-size: 14px;
+  letter-spacing: .4px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid rgba(76, 201, 240, 0.25);
+  border-top-color: #4cc9f0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="images/logo.png" alt="Innova" />
+      <span>Innova CRM</span>
+    </div>
+
+
+<nav class="menu">
+  <a class="active">Dashboard</a>
+  <a href="http://innovasystem.onlinewebshop.net/uploader/index.php">Cargar IMG/PDF</a>
+</nav>
+
+
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+
+<div class="topbar">
+  <h1>Dashboard de Clientes</h1>
+</div>
+
+<!-- KPIs -->
+<section class="kpis">
+  <div class="kpi"><span>Total Clientes</span><h2 id="kTotal">0</h2></div>
+  <div class="kpi"><span>Prontos a Vencer</span><h2 id="kCities">0</h2></div>
+  <div class="kpi"><span>Paquetes Vencidos</span><h2 id="kInterests">0</h2></div>
+  <div class="kpi"><span>Últimos 7 días</span><h2 id="kRecent">0</h2></div>
+</section>
+
+<!-- FILTERS -->
+<section class="filters">
+  <input id="search" placeholder="Buscar por nombre, correo o teléfono" />
+  <select id="filterCity"><option value="">Todas las ciudades</option></select>
+  <select id="filterInterest"><option value="">Todos los intereses</option></select>
+</section>
+
+
+
+<style>
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
+
+
+<!-- TABLE -->
+<section class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Correo</th>
+        <th>Ciudad</th>
+        <th>Interés</th>
+        <th>Paquete</th>
+        <th>Fecha</th>
+        <th>Expiración</th>
+
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</section>
+</main>
+
+
+<!-- LOADER OVERLAY -->
+<div id="loaderOverlay" class="loader-overlay">
+  <div class="loader-box">
+    <span class="spinner"></span>
+    <p>Cargando datos...</p>
+  </div>
+</div>
+
+
+<script>
+/* ==========================================================
+   DASHBOARD JS — NIVEL SENIOR
+   ========================================================== */
+
+const API_URL = "https://script.google.com/macros/s/AKfycbxfqKzBokBNfza7Ca1RCdCw_YjzatfgNJLn0ptMEV6oT7DEkzlqQknREhMwQRHplSDh/exec";
+
+let rawData = [];
+let filteredData = [];
+
+const tbody = document.getElementById('tbody');
+const search = document.getElementById('search');
+const filterCity = document.getElementById('filterCity');
+const filterInterest = document.getElementById('filterInterest');
+const loader = document.getElementById('loaderOverlay');
+
+/* ================= OBTIENE EL NUMERO DE MESES DEL PAQUETE ================= */
+
+function getMonthsFromPackage(pkg = '') {
+  const match = pkg.match(/(\d+)\s*mes/i);
+  return match ? parseInt(match[1]) : 0;
+}
+
+/* ================= FORMATEA TIEMPO RESTANTE ================= */
+
+function formatRemaining(diff) {
+  if (diff <= 0) return 'Expirado';
+
+  const totalMinutes = Math.floor(diff / 60000);
+  const minutes = totalMinutes % 60;
+  const totalHours = Math.floor(totalMinutes / 60);
+  const hours = totalHours % 24;
+  const totalDays = Math.floor(totalHours / 24);
+  const months = Math.floor(totalDays / 30);
+
+  return `${months}m ${hours}h ${minutes}m`;
+}
+
+/* ================= FETCH DATA ================= */
+
+async function loadProspects() {
+  loader.style.display = 'flex';
+
+  try {
+    const res = await fetch(API_URL + "?action=get_prospects");
+    const json = await res.json();
+
+    rawData = json || [];
+    filteredData = [...rawData];
+
+    updateFilters();
+    updateKpis();
+    render(filteredData);
+
+  } catch (err) {
+    console.error("Error cargando prospectos:", err);
+  } finally {
+    loader.style.display = 'none';
+  }
+}
+
+/* ================= RENDER (SOLO UNA VEZ) ================= */
+
+function render(list) {
+  tbody.innerHTML = '';
+
+  if (!list.length) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align:center; color:rgba(255,255,255,.5)">
+          No hay prospectos
+        </td>
+      </tr>`;
+    return;
+  }
+
+  list.forEach(r => {
+    const months = getMonthsFromPackage(r.package);
+    const start = new Date(r.date);
+    const expiration = new Date(start);
+    expiration.setMonth(expiration.getMonth() + months);
+
+    tbody.innerHTML += `
+      <tr>
+        <td>${r.name}</td>
+        <td>${r.phone}</td>
+        <td>${r.email}</td>
+        <td>${r.city}</td>
+        <td>${r.interest}</td>
+        <td>${r.package}</td>
+        <td>${r.date}</td>
+        <td class="exp-cell"
+            data-exp="${expiration.toISOString()}"
+            style="font-weight:600;">
+          —
+        </td>
+      </tr>
+    `;
+  });
+
+  updateExpirations(); // primer cálculo inmediato
+}
+
+/* ================= ACTUALIZA SOLO LA COLUMNA EXPIRACIÓN ================= */
+
+function updateExpirations() {
+  const now = new Date();
+
+  document.querySelectorAll('.exp-cell').forEach(cell => {
+    const exp = new Date(cell.dataset.exp);
+    const diff = exp - now;
+
+    cell.textContent = formatRemaining(diff);
+    cell.style.color = diff <= 0 ? '#ff6b6b' : '#4cc9f0';
+  });
+}
+
+/* ================= FILTERS ================= */
+
+function updateFilters() {
+  filterCity.innerHTML = '<option value="">Todas las ciudades</option>';
+  filterInterest.innerHTML = '<option value="">Todos los intereses</option>';
+
+  [...new Set(rawData.map(d => d.city))].forEach(c =>
+    filterCity.innerHTML += `<option>${c}</option>`
+  );
+
+  [...new Set(rawData.map(d => d.interest))].forEach(i =>
+    filterInterest.innerHTML += `<option>${i}</option>`
+  );
+}
+
+function applyFilters() {
+  const q = search.value.toLowerCase();
+
+  filteredData = rawData.filter(d => {
+    const matchText =
+      d.name.toLowerCase().includes(q) ||
+      d.email.toLowerCase().includes(q) ||
+      d.phone.includes(q);
+
+    const matchCity = !filterCity.value || d.city === filterCity.value;
+    const matchInterest = !filterInterest.value || d.interest === filterInterest.value;
+
+    return matchText && matchCity && matchInterest;
+  });
+
+  render(filteredData);
+}
+
+/* ================= KPIs ================= */
+
+function updateKpis() {
+  document.getElementById('kTotal').textContent = rawData.length;
+  document.getElementById('kCities').textContent = new Set(rawData.map(d => d.city)).size;
+  document.getElementById('kInterests').textContent = new Set(rawData.map(d => d.interest)).size;
+
+  const now = Date.now();
+  document.getElementById('kRecent').textContent =
+    rawData.filter(d => (now - new Date(d.date)) < 7 * 86400000).length;
+}
+
+/* ================= EVENTS ================= */
+
+[search, filterCity, filterInterest].forEach(el =>
+  el.addEventListener('input', applyFilters)
+);
+
+/* ================= INIT ================= */
+
+loadProspects();
+
+/* ================= TIEMPO REAL (CADA MINUTO) ================= */
+
+setInterval(updateExpirations, 60000);
+
+</script>
+
+
+
+</body>
+</html>

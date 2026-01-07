@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Believe System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Overlay Glass -->
+  <div id="overlay" class="hidden"></div>
+
+  <!-- Header -->
+ <header class="glass-header">
+  <div class="brand">
+    <img src="images/logo.png" alt="Academia" class="brand-logo">
+  </div>
+  <div class="actions">
+    <button id="loginToggle" class="ghost">Iniciar Sesión</button>
+    <span id="userBadge">Invitado</span>
+  </div>
+</header>
+
+
+  <!-- Main Sections -->
+  <main>
+    <section id="home" class="section active fade-in">
+      <div class="hero">
+        <h1>Bienvenido a la Academia</h1>
+        <p>Explora, aprende y crece con estilo Innova.</p>
+      </div>
+      <input id="searchInput" type="text" name="search_video" placeholder="Buscar video..." class="search glass-input" autocomplete="new-password">
+      <div id="categories" class="categories"></div>
+      
+
+      <!-- <div id="gallery" class="gallery-grid"></div> -->
+    </section>
+
+    <section id="videos" class="section">
+      <h2>Redireccionando al gestor de archivos....</h2>
+      <div id="gallery" class="gallery-grid"></div>
+    </section>
+
+    <!-- ADMIN DASHBOARD -->
+    <section id="admin-videos" class="section admin-only fade-in">
+      <h2>Panel de Administración</h2>
+
+      <div class="admin-layout">
+        
+        <!-- ===== ASIDE IZQUIERDO ===== -->
+        <aside id="adminSidebar" class="glass-panel admin-aside">
+           <h3>Gestor de Contenido</h3>
+          <div class="admin-controls">
+            <input id="catName" type="text" class="glass-input" placeholder="Nueva Categoría">
+            <button id="addCategoryBtn" class="primary full">➕ Crear Categoría</button>
+
+            <hr class="divider">
+
+            <input id="vidTitle" type="text" class="glass-input" placeholder="Título del video">
+            <input id="vidLink" type="text" class="glass-input" placeholder="Enlace de YouTube">
+            <div class="select-wrap">
+            <select id="vidCategory" class="glass-input">
+              <option value="">Selecciona una categoría</option>
+            </select>
+            </div>
+
+            <button id="saveVideoBtn" class="primary full">💾 Guardar Video</button>
+          </div>
+        </aside>
+
+        <!-- ===== PANEL PRINCIPAL ===== -->
+        <div class="admin-content">
+          <div class="admin-categories glass-panel">
+            <h3>Categorías</h3>
+            <div id="adminCategories" class="categories"></div>
+          </div>
+
+          <div class="admin-gallery glass-panel">
+            <h3>Videos Guardados</h3>
+            <div id="adminGallery" class="gallery-grid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <h2>Preguntas Frecuentes</h2>
+      <button id="addFaqBtn" class="primary">+ Añadir FAQ</button>
+      <div id="faqList" class="faq-list"></div>
+    </section>
+    
+     <!-- SECCION PARA REDIRIGIR A SUBIR FOTOS O PDFS -->
+    <section id="tools" class="section admin-only">
+    <h2>Cargando imagenes & PDFs......</h2>
+    </section>
+
+  </main>
+
+  <!-- LOGIN MODAL -->
+<div id="loginModal" class="modal hidden">
+  <div class="glass-modal">
+
+    <h3 style="text-align:center; margin-bottom:20px;">Iniciar Sesión</h3>
+
+    <div class="modal-body">
+
+      <!-- NUEVO SELECTOR DE ROL -->
+      <div style="margin-bottom:12px">
+        <label for="loginRole" class="muted">Ingresar como:</label>
+
+        <div class="select-wrap">
+          <select id="loginRole" class="glass-input">
+            <option value="student">Estudiante</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+      </div>
+
+      <input id="loginUser" type="text" class="glass-input" placeholder="Usuario">
+
+      <!-- 🔐 CONTRASEÑA CON OJITO -->
+      <div class="password-field">
+        <input
+          id="loginPass"
+          type="password"
+          class="glass-input"
+          placeholder="Contraseña"
+        />
+        <button
+          type="button"
+          id="toggleLoginPass"
+          class="password-toggle"
+          aria-label="Mostrar contraseña"
+        >
+          👁️
+        </button>
+      </div>
+
+      <button id="loginBtn" class="primary full">Iniciar sesión</button>
+      <button id="closeLogin" class="ghost full">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <!-- VIDEO MODAL -->
+  <div id="videoModal" class="modal hidden">
+    <div class="glass-modal large">
+      <div id="modalPlayer" class="video-player"></div>
+      <div id="modalMeta" class="video-meta"></div>
+      <button id="closeVideoModal" class="ghost full">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Menu Inferior -->
+  <nav id="menu" class="bottom-nav glass-nav">
+    <!--Students Only-->
+    <button class="menu-btn active" data-section="home">🏠</button>
+    <button class="menu-btn" data-section="videos">🎬</button>
+    <button class="menu-btn" data-section="faq">❓</button>
+    <!--Admin Only-->
+    <button class="menu-btn admin-only" data-section="admin-videos">🛠️</button>
+    <button class="menu-btn admin-only" data-section="tools">🖼️</button>
+  </nav>
+  
+  <!--Sweet alert CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="app.js"></script>
+</body>
+</html>
