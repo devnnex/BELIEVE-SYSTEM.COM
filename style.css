@@ -154,6 +154,82 @@ button.primary {
   box-shadow: var(--accent-glow);
 }
 
+a.primary{
+  position: relative;
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #001;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100%;
+  background: linear-gradient(
+    120deg,
+    #1b3cff,
+    #6ddcff,
+    #7a4bff,
+    #1b3cff
+  );
+  background-size: 300% 300%;
+  animation: galaxyFlow 8s ease infinite;
+  box-shadow:
+    0 0 14px #1b3cff,
+    0 0 26px #6ddcff;
+}
+
+/* 🌌 CAPA INTERNA TIPO GALAXIA */
+a.primary::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 30%, #7ee0ff 0%, transparent 40%),
+    radial-gradient(circle at 70% 60%, #7a4bff 0%, transparent 45%);
+  opacity:.45;
+  animation: galaxyParticles 10s linear infinite;
+}
+
+/* ✨ BORDE NEÓN LIMPIO */
+a.primary::after{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:inherit;
+  border:1px solid #7ee0ff;
+  pointer-events:none;
+}
+
+/* 🔮 TEXTO SOBRE TODO */
+a.primary span,
+a.primary{
+  position:relative;
+  z-index:1;
+}
+
+/* 🚀 ANIMACIONES */
+@keyframes galaxyFlow{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+@keyframes galaxyParticles{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-40%)}
+}
+
+/* 🌟 HOVER PREMIUM */
+a.primary:hover{
+  box-shadow:
+    0 0 22px #1b3cff,
+    0 0 42px #7ee0ff;
+  transform: translateY(-1px);
+}
+
+
 button.primary:hover {
   filter: brightness(1.15);
 }
@@ -234,10 +310,11 @@ main {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* 👈 igual que admin */
   gap: 18px;
   padding-bottom: 100px;
 }
+
 
 .video-card {
   background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.25));
@@ -257,23 +334,36 @@ main {
 
 .video-thumb {
   width: 100%;
-  height: 140px;
-  background-position: center;
-  background-size: cover;
-  border-bottom: 1px solid var(--glass-border);
+    aspect-ratio: 16 / 9;
+    height: auto;
+    background-position: center;
+    background-size: cover;
+    border-bottom: 1px solid var(--glass-border);
 }
 
+
 .video-title {
-  padding: 12px 14px 0;
+  padding: 12px 14px 4px;
   font-weight: 600;
   font-size: 15px;
 }
 
 .video-card .muted {
-  padding: 0 14px 14px;
+  padding: 0 14px 12px;
   font-size: 13px;
   color: var(--text-muted);
 }
+
+/* SOLO PARA VIDEOS DENTRO DE CATEGORÍAS */
+.section .gallery-grid .video-thumb {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  min-height: 140px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+}
+
 
 /* ====== CATEGORY CHIPS ====== */
 .categories {
@@ -878,8 +968,38 @@ main {
 }
 
 
+/* ==========================================================
+   CATEGORY CARDS — MOBILE 2-COLUMN PRO SYSTEM
+   No afecta desktop
+   ========================================================== */
 
+@media (max-width: 640px) {
 
-/* ====== END OF STYLE.CSS ====== */
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas exactas */
+    gap: 12px;
+    justify-items: stretch;
+    align-items: stretch;
+  }
+
+  .categories .chip {
+    width: 100%;
+    text-align: center;
+    padding: 12px 10px;
+    border-radius: 14px; /* menos píldora, más card */
+    font-size: 13px;
+    line-height: 1.2;
+
+    /* tap-friendly */
+    min-height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+ 
 
 
