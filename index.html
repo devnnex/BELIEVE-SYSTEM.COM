@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Believe System</title>
+  <title>Believe System Platform</title>
   <link rel="stylesheet" href="style.css">
+
+   <!-- 🧩 Favicon clásico -->
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+
+  <!-- 📱 Ícono de app (iOS / Android) -->
+  <link rel="apple-touch-icon" href="./images/favicon.png">
+
+  <!-- 🧭 Configuración PWA -->
+  <meta name="theme-color" content="#4cc9f0 ">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Believe System">
+
+  <!-- 📜 Manifest -->
+  <link rel="manifest" href="./manifest.json">
 </head>
 <body>
 
@@ -31,7 +47,10 @@
         <p>Explora, aprende y crece con estilo Innova.</p>
       </div>
       <input id="searchInput" type="text" name="search_video" placeholder="Buscar video..." class="search glass-input" autocomplete="new-password">
+      
+
       <div id="categories" class="categories"></div>
+      
       
 
       <!-- <div id="gallery" class="gallery-grid"></div> -->
@@ -66,6 +85,7 @@
             </div>
 
             <button id="saveVideoBtn" class="primary full">💾 Guardar Video</button>
+            <a href="/dashboard.html" class="primary full" style="text-decoration: none;">Dashboard</a>
           </div>
         </aside>
 
