@@ -11,6 +11,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- 🧩 Favicon clásico -->
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+
+  <!-- 📱 Ícono de app (iOS / Android) -->
+  <link rel="apple-touch-icon" href="./images/favicon.png">
+
+  <!-- 🧭 Configuración PWA -->
+  <meta name="theme-color" content="#4cc9f0 ">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Believe System">
+
+  <!-- 📜 Manifest -->
+  <link rel="manifest" href="./manifest.json">
+
   <!-- Puedes importar aquí tu style.css principal -->
   <!-- <link rel="stylesheet" href="style.css"> -->
 
@@ -63,17 +79,28 @@
     }
 
     /* ====== MODAL GLASS ====== */
-    .form-modal {
-      width: min(520px, 100%);
-      background: var(--glass-bg);
-      backdrop-filter: blur(var(--blur)) saturate(180%);
-      -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
-      border: 1px solid var(--glass-border);
-      border-radius: 26px;
-      padding: 26px 26px 28px; /* ⬇️ menos alto */
-      box-shadow: var(--shadow);
-      animation: modalIn .45s ease both;
-    }
+ .form-modal {
+  width: min(520px, 100%);
+  max-height: min(92vh, 760px); /* 👈 evita que pase la pantalla */
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 26px;
+  padding: 22px 22px 24px; /* 👈 un poco más compacto */
+  box-shadow: var(--shadow);
+  animation: modalIn .45s ease both;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ====== CONTENIDO SCROLLEABLE ====== */
+.form-modal form {
+  overflow-y: auto;
+  padding-right: 4px; /* evita que el scroll tape contenido */
+  max-height: calc(92vh - 200px); 
+}
+
 
     @keyframes modalIn {
       from { opacity: 0; transform: translateY(20px) scale(.96); }
@@ -220,11 +247,83 @@ select:-moz-focusring {
       transform: translateY(-1px);
     }
 
+    /* ==========================================================
+   SCROLLBAR PREMIUM — AZUL NEÓN ELEGANTE
+   Solo para el formulario (no global)
+   ========================================================== */
+
+/* Chrome, Edge, Safari */
+.form-modal form::-webkit-scrollbar {
+  width: 6px;              /* delgada */
+}
+
+.form-modal form::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.04); /* negro claro */
+  border-radius: 10px;
+}
+
+.form-modal form::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #4cc9f0,
+    #2aa9e0
+  );
+  border-radius: 10px;
+  box-shadow:
+    0 0 6px rgba(76,201,240,0.6),
+    inset 0 0 4px rgba(255,255,255,0.35);
+}
+
+.form-modal form::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #7ee0ff,
+    #4cc9f0
+  );
+}
+
+/* Firefox */
+.form-modal form {
+  scrollbar-width: thin;
+  scrollbar-color: #4cc9f0 rgba(255,255,255,0.04);
+}
+
+
+.form-modal form::-webkit-scrollbar-thumb:active {
+  box-shadow:
+    0 0 10px rgba(76,201,240,0.9),
+    inset 0 0 6px rgba(255,255,255,0.5);
+}
+
+
     /* ====== RESPONSIVE ====== */
+
+    @media (min-width: 1024px) {
+  .form-modal {
+    max-height: 82vh;   /* 👈 más aire en desktop */
+  }
+
+  .form-modal form {
+    max-height: calc(82vh - 210px);
+  }
+}
+
+
     @media (max-width: 480px) {
-      .form-modal { padding: 28px 22px; }
-      .form-header h1 { font-size: 24px; }
-    }
+  .form-modal {
+    padding: 20px 18px;
+    border-radius: 22px;
+  }
+
+  .form-header h1 {
+    font-size: 23px;
+  }
+
+  .form-modal form {
+    max-height: calc(100vh - 180px);
+  }
+}
+
     
     /* ====== SWEETALERT — ESTILO INNOVA ====== */
 .innova-toast {
@@ -564,38 +663,14 @@ document.getElementById('prospectForm').addEventListener('submit', e => {
   });
 
   /* ===== FEEDBACK AL USUARIO ===== */
-  /* ===== FEEDBACK AL USUARIO ===== */
- Swal.fire({
-  icon: 'success',
-  title: 'Registro enviado',
-  html: `
-    <p style="margin-bottom:12px">
-      Te enviamos un correo con el acceso a la academia 🚀
-    </p>
-    <small style="opacity:.7">
-      Si no lo ves, revisa spam o promociones
-    </small>
-  `,
-  background: '#050814',
-  color: '#e9f0ff',
-  iconColor: '#4cc9f0',
-
-  showCancelButton: true,
-  confirmButtonText: '📧 Abrir correo',
-  cancelButtonText: 'Continuar',
-
-  confirmButtonColor: '#4cc9f0',
-  cancelButtonColor: '#2b2f45',
-
-  customClass: {
-    popup: 'innova-toast'
-  }
-}).then(result => {
-  if (result.isConfirmed) {
-    // 🔗 Abre la app de correo predeterminada
-    window.location.href = `mailto:${email}`;
-  }
-});
+  Swal.fire({
+    icon: 'success',
+    title: 'Registro enviado',
+    text: 'Revisa tu correo, te enviamos el acceso a la academia 🚀',
+    background: '#050814',
+    color: '#e9f0ff',
+    iconColor: '#4cc9f0'
+  });
 
   e.target.reset();
 });
@@ -604,5 +679,4 @@ document.getElementById('prospectForm').addEventListener('submit', e => {
 </script>
 </body>
 </html>
-
 
