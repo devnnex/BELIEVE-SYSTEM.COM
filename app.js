@@ -1365,30 +1365,104 @@ async function saveVideoEdits() {
   FIN EDIT VIDEO DE PARTE DEL ADMIN 
    --------------------------- */
 
+  // CONVERTIR LINK EN ID + PROVEEDOR
+function parseVideoLink(link) {
+  try {
+    const u = new URL(link);
+
+    // YOUTUBE
+    if (u.hostname.includes("youtube") || u.hostname.includes("youtu.be")) {
+      const id = u.searchParams.get("v") || u.pathname.split("/").pop();
+      return { provider: "youtube", id };
+    }
+
+    // VIMEO
+    if (u.hostname.includes("vimeo.com")) {
+      const id = u.pathname.split("/").filter(Boolean).pop();
+      return { provider: "vimeo", id };
+    }
+
+  } catch (e) {}
+
+  return null;
+}
+
+
 /* ---------------------------
    EMBED / THUMBNAIL HELPERS
    --------------------------- */
-function thumbnailFromLink(link) {
-  try {
-    const u = new URL(link);
-    if (u.hostname.includes("youtube") || u.hostname.includes("youtu.be")) {
-      const vid = u.searchParams.get("v") || u.pathname.split("/").pop();
-      return `https://i.ytimg.com/vi/${vid}/hqdefault.jpg`;
+async function thumbnailFromLink(link) {
+  const info = parseVideoLink(link);
+  if (!info) return defaultThumb();
+
+  // YOUTUBE
+  if (info.provider === "youtube") {
+    return `https://i.ytimg.com/vi/${info.id}/hqdefault.jpg`;
+  }
+
+  // VIMEO (oEmbed)
+  if (info.provider === "vimeo") {
+    try {
+      const res = await fetch(
+        `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${info.id}`
+      );
+      const data = await res.json();
+      return data.thumbnail_url;
+    } catch (e) {
+      console.warn("Vimeo thumbnail error", e);
     }
-  } catch (e) { /* ignore */ }
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='640' height='360'><rect width='100%' height='100%' fill='#081028'/><text x='50%' y='50%' fill='#777' font-family='Arial' font-size='20' dominant-baseline='middle' text-anchor='middle'>Preview</text></svg>`;
+  }
+
+  return defaultThumb();
+}
+
+function defaultThumb() {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='640' height='360'>
+    <rect width='100%' height='100%' fill='#081028'/>
+    <text x='50%' y='50%' fill='#777' font-size='20'
+      dominant-baseline='middle' text-anchor='middle'>
+      Preview
+    </text>
+  </svg>`;
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
+
 function embedFromLink(link) {
-  try {
-    const u = new URL(link);
-    if (u.hostname.includes("youtube") || u.hostname.includes("youtu.be")) {
-      const vid = u.searchParams.get("v") || u.pathname.split("/").pop();
-      return `<iframe src="https://www.youtube.com/embed/${vid}?rel=0" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:480px;border-radius:10px;"></iframe>`;
-    }
-  } catch (e) {}
-  return `<iframe src="${esc(link)}" frameborder="0" style="width:100%;height:480px;border-radius:10px;"></iframe>`;
+  const info = parseVideoLink(link);
+  if (!info) {
+    return `<iframe src="${esc(link)}"
+      frameborder="0"
+      style="width:100%;height:480px;border-radius:10px;">
+    </iframe>`;
+  }
+
+  // YOUTUBE
+  if (info.provider === "youtube") {
+    return `
+      <iframe
+        src="https://www.youtube.com/embed/${info.id}?rel=0"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen
+        style="width:100%;height:480px;border-radius:10px;">
+      </iframe>
+    `;
+  }
+
+  // VIMEO
+  if (info.provider === "vimeo") {
+    return `
+      <iframe
+        src="https://player.vimeo.com/video/${info.id}?autoplay=1&title=0&byline=0&portrait=0"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        style="width:100%;height:480px;border-radius:10px;">
+      </iframe>
+    `;
+  }
 }
+
 
 /* ---------------------------
    MODAL: VIDEO PLAYER
