@@ -10,6 +10,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- 🧩 Favicon clásico -->
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+
+  <!-- 📱 Ícono de app (iOS / Android) -->
+  <link rel="apple-touch-icon" href="./images/favicon.png">
+
+  <!-- 🧭 Configuración PWA -->
+  <meta name="theme-color" content="#4cc9f0 ">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Believe System">
+
+  <!-- 📜 Manifest -->
+  <link rel="manifest" href="./manifest.json">
+
   <style>
   /* ==========================================================
      INNOVA — DASHBOARD PREMIUM (SINGLE FILE)
@@ -180,13 +196,34 @@
   }
 
   /* ================= TABLE ================= */
-  .table-wrap {
-    background: var(--glass);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: auto;
-    box-shadow: var(--shadow);
-  }
+.table-wrap {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  /* 👇 CLAVE */
+  max-height: 420px;      /* ajusta según tu gusto */
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+/* ================= SCROLL PREMIUM ================= */
+.table-wrap::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-wrap::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.35);
+  border-radius: 10px;
+}
+
+.table-wrap::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4cc9f0, #7ee0ff);
+  border-radius: 10px;
+}
+
 
   table {
     width: 100%;
@@ -217,6 +254,10 @@
   @media(max-width: 900px) {
     .sidebar { display: none; }
     .topbar h1 { font-size: 24px; }
+
+     body {
+    overflow-y: auto;
+  }
   }
 
   /* ===============================
