@@ -21,7 +21,7 @@ const KEYS = {
 
 // Credenciales estáticas (las que pediste)
 const CREDENTIALS = {
-  student: { user: "usuario8977", pass: "believe777" },
+  student: { user: "innova", pass: "believe2026" },
   admin:   { user: "edgar2026", pass: "believe2026" }
 };
 
@@ -1959,3 +1959,4 @@ renderAll();
 /* ============================================================
    End of app.js
    ============================================================ */
+
